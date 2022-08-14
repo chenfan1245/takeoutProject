@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.TbluserMapper">
+    <!--登录验证-->
+    <select id="login" resultType="com.cykj.bean.Tbluser">
+        select * from tbluser where usertel = #{usertel} and userpwd = #{userpwd}
+    </select>
+    <!--注册-->
+    <insert id="enroll" >
+        insert into tbluser(usertel,userpwd,username,roleid,userstate) values (#{usertel},#{userpwd},'胖头鱼',1,'2')
+    </insert>
+    <!--验证电话是否重复-->
+    <select id="checkTel" resultType="com.cykj.bean.Tbluser">
+        select * from  tbluser where usertel = #{usertel}
+    </select>
+    <!--修改密码-->
+    <update id="setPwd">
+        update tbluser set userpwd = #{userpwd} where usertel = #{usertel}
+    </update>
+</mapper>
