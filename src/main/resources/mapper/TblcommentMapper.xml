@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.TblcommentMapper"><!--命名空间属性：必须要写,java接口映射-->
+    <!-- 查询待评价的订单的店铺信息 -->
+    <select id="findNoCommentShop" resultType="com.cykj.bean.Tblcomment">
+        select * from tblcomment c
+        inner join tblorder o on c.orderid = o.orderid
+        inner join tblshop s on s.shopid = o.shopid
+        where commentcontent is null and userid = #{userid}
+    </select>
+
+    <!-- 查询待评价的订单的商品信息 -->
+    <select id="findNoCommentGoods" resultType="com.cykj.bean.Tblcomment">
+        select * from tblcomment c
+        inner join tblorder o on o.orderid = c.orderid
+        inner join tblbuygoods bg on bg.orderid = o.orderid
+        inner join tblgoods g on g.goodsid = bg.goodsid
+        where c.userid = #{userid} and c.commentcontent is null and c.orderid = #{orderid}
+    </select>
+
+    <!-- 查询“我的评价”已评价的订单信息和评价内容 -->
+    <select id="findComment" resultType="com.cykj.bean.Tblcomment">
+        select * from tblcomment c
+        inner join tblorder o on o.orderid = c.orderid
+        inner join tblshop s on s.shopid = c.shopid
+        where c.commentcontent is not null and c.userid = #{userid}
+    </select>
+
+</mapper>

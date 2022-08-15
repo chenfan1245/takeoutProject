@@ -42,7 +42,7 @@ public class Tblshop {
   @ApiModelProperty(value = "法人身份证号")
   private String legalpersonid;
 
-  /* 商家 */
+  /* 商品 */
   @ApiModelProperty(value = "商品id")
   private long goodsid;
   @ApiModelProperty(value = "类型id")
@@ -389,6 +389,6 @@ public class Tblshop {
             ", 招牌菜id=" + specialityid +
             ", 左侧菜单栏名称='" + name + '\'' +
             ", 左侧菜单栏的父级id=" + parentid +
-            '}';
+            '}' + '\n';
   }
 }

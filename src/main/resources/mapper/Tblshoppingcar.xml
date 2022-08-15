@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.TblshoppingcarMapper"><!--命名空间属性：必须要写,java接口映射-->
+    <!--【增】点单：将商品加入到购物车-->
+    <insert id="addShoppingcar">
+        insert into tblshoppingcard (shopid,goodsid,userid,bugnum)
+        values (#{shopid},#{goodsid},#{userid},1)
+    </insert>
+
+    <!--【改】点击加号或减号或输入数值，修改购物车商品数量-->
+    <update id="updateShoppingcarNum">
+        update tblshoppingcard set bugnum = #{bugnum} where goodsid = #{goodsid} and userid = #{userid}
+    </update>
+
+    <!-- 查询商品库存（用于判断加入购物车的购买数量是否大于库存） -->
+    <select id="findGoodsNum" resultType="int">
+        select goodsnum from tblgoods where goodsid = #{goodsid}
+    </select>
+
+    <!-- 购物车显示内容：商家名称 -->
+    <select id="findCarShop" resultType="String">
+        select distinct shopname from tblshop s
+        inner join tblshoppingcard sc on sc.shopid = s.shopid
+        where sc.userid = #{userid}
+    </select>
+
+    <!-- 购物车显示内容：商品信息 -->
+    <select id="findCarGoods" resultType="com.cykj.bean.Tblshoppingcard">
+        select sc.*,s.shopname,g.goodsname,g.goodsprice,g.goodsimg from tblshoppingcard sc
+        inner join tblgoods g on g.goodsid = sc.goodsid
+        inner join tblshop s on s.shopid = g.shopid
+        where sc.userid = #{userid}
+        <if test="shopnameList != null and shopnameList.size() > 0">
+            and s.shopname in
+            <foreach collection="shopnameList" open="(" close=")" separator="," item="shopname">
+                #{shopname}
+            </foreach>
+        </if>
+    </select>
+
+    <!-- 购物车显示内容：商品的规格内容 -->
+    <select id="findCarGoodsSpec" resultType="com.cykj.bean.Tblgoodsspec">
+        select sc.userid,g.goodsid,g.goodsname,sp.specname from tblshoppingcard sc
+        inner join tblgoods g on g.goodsid = sc.goodsid
+        inner join tblgoodsspec gsp on gsp.goodsid = sc.goodsid
+        inner join tblspec sp on sp.specid = gsp.specid
+        where sc.userid = #{userid} and sp.parentid != 0
+        <if test="goodsidList != null and goodsidList.size() > 0">
+            and sc.goodsid in
+            <foreach collection="goodsidList" open="(" close=")" separator="," item="goodsid">
+                #{goodsid}
+            </foreach>
+        </if>
+        <if test="specidList != null and specidList.size() > 0">
+            and sp.specid in
+            <foreach collection="specidList" open="(" close=")" separator="," item="specid">
+                #{specid}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>

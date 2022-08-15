@@ -403,6 +403,6 @@ public class Tblgoods {
             ", 左侧菜单栏的父级id=" + parentid +
             ", 类型名称='" + typename + '\'' +
             ", 类型图标='" + typeimg + '\'' +
-            '}';
+            '}' + '\n';
   }
 }

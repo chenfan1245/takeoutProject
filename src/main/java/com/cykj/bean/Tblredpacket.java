@@ -165,6 +165,6 @@ public class Tblredpacket {
             ", 红包状态='" + state + '\'' +
             ", 角色id=" + roleid +
             ", 用户帐号='" + usertel + '\'' +
-            '}';
+            '}' + '\n';
   }
 }
