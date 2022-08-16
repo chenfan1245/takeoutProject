@@ -28,7 +28,7 @@
 
     <!-- 购物车显示内容：商品信息 -->
     <select id="findCarGoods" resultType="com.cykj.bean.Tblshoppingcard">
-        select sc.*,s.shopname,g.goodsname,g.goodsprice,g.goodsimg from tblshoppingcard sc
+        select sc.*,s.shopname,g.goodsname,g.goodsprice,g.goodsimg,g.goodsnum from tblshoppingcard sc
         inner join tblgoods g on g.goodsid = sc.goodsid
         inner join tblshop s on s.shopid = g.shopid
         where sc.userid = #{userid}
@@ -44,8 +44,7 @@
     <select id="findCarGoodsSpec" resultType="com.cykj.bean.Tblgoodsspec">
         select sc.userid,g.goodsid,g.goodsname,sp.specname from tblshoppingcard sc
         inner join tblgoods g on g.goodsid = sc.goodsid
-        inner join tblgoodsspec gsp on gsp.goodsid = sc.goodsid
-        inner join tblspec sp on sp.specid = gsp.specid
+        inner join tblspec sp on sp.goodsid = g.goodsid
         where sc.userid = #{userid} and sp.parentid != 0
         <if test="goodsidList != null and goodsidList.size() > 0">
             and sc.goodsid in

@@ -28,25 +28,31 @@ class TakeoutUserApplicationTests {
     @Test
     void contextLoads() {
         // 前端传来的数据
-
+        long userid = 2;
+        List<Long> specidList = new ArrayList<>();
+        specidList.add(30L);
+        specidList.add(33L);
+        specidList.add(47L);
+        specidList.add(50L);
 
         // 测试
-        for (Tblshop tblshop : tblgoodsService.findAllShopGoods("","",0)) {
-            long shopid = tblshop.getShopid();
-            List<Double> scoreList = tblgoodsService.findScore(shopid);
-            Double scoreAvg = 5.0;
-            if (!scoreList.isEmpty()) {
-                scoreAvg = scoreList.stream().collect(Collectors.averagingDouble(Double::doubleValue));
-            }
-            boolean flag1 = tblgoodsService.updateScore(scoreAvg,shopid);
-            long salesSum = tblgoodsService.findSales(shopid);
-            boolean flag2 = tblgoodsService.updateSales(salesSum,shopid);
+        List<String> shopNameList = tblshoppingcarService.findCarShop(userid);  // 店铺名称列表
+        List<Tblgoodsspec> specnNameList = new ArrayList<>(); // 规格内容列表
+        List<Tblshoppingcard> goodsList = new ArrayList<>();    // 商品列表
+        List<Long> goodsidList = new ArrayList<>();     // 商品id列表
+        goodsList = tblshoppingcarService.findCarGoods(userid, shopNameList);
+        for (Tblshoppingcard tblshoppingcard : goodsList) {
+            goodsidList.add(tblshoppingcard.getGoodsid());
+            specnNameList = tblshoppingcarService.findCarGoodsSpec(userid, goodsidList, specidList);
         }
-        List<Tblshop> shopsList = tblgoodsService.findAllShopGoods("","",0);
 
         // 打印
         System.out.println("-------------------------------------------------------------");
-        System.out.println("商家列表："+shopsList);
+        System.out.println("商家列表："+shopNameList);
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("规格列表："+specnNameList);
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("商品列表："+goodsList);
         System.out.println("-------------------------------------------------------------");
 
     }

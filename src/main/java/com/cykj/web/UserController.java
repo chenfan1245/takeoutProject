@@ -86,7 +86,7 @@ public class UserController {
     }
 
     /* 点击加入购物车，将商家id、商品id和用户id加入到购物车中（默认购买数量为1） */
-    @ApiOperation(value = "addShoppingcar",notes = "新增用户方法，传回1成功 2失败")
+    @ApiOperation(value = "addShoppingcar",notes = "将商品添加到购物车的新增方法，传回1成功 2失败")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "shopid",value = "加入到购物车的店铺的商家id"),
             @ApiImplicitParam(name = "goodsid",value = "加入到购物车的商品的商品id"),

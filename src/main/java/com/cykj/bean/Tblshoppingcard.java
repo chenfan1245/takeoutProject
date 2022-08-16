@@ -30,13 +30,6 @@ public class Tblshoppingcard {
   private long goodsnum;
   @ApiModelProperty(value = "商品价格")
   private double goodsprice;
-  /* 规格 */
-  @ApiModelProperty(value = "规格id")
-  private long specid;
-  @ApiModelProperty(value = "规格名称")
-  private String specname;
-  @ApiModelProperty(value = "父级id（将子规格归属于父规格，如规格名为“正常冰“归属于规格名为“温度”）")
-  private long parentid;
   /* 商品列表 */
   private List<Tblshoppingcard> goodsList;
 
@@ -56,9 +49,6 @@ public class Tblshoppingcard {
             ", 商品名称='" + goodsname + '\'' +
             ", 商品库存=" + goodsnum +
             ", 商品价格=" + goodsprice +
-            ", 规格id=" + specid +
-            ", 规格内容='" + specname + '\'' +
-            ", 规格的父级id=" + parentid +
             '}' + '\n';
   }
 
@@ -116,30 +106,6 @@ public class Tblshoppingcard {
 
   public void setGoodsprice(double goodsprice) {
     this.goodsprice = goodsprice;
-  }
-
-  public long getSpecid() {
-    return specid;
-  }
-
-  public void setSpecid(long specid) {
-    this.specid = specid;
-  }
-
-  public String getSpecname() {
-    return specname;
-  }
-
-  public void setSpecname(String specname) {
-    this.specname = specname;
-  }
-
-  public long getParentid() {
-    return parentid;
-  }
-
-  public void setParentid(long parentid) {
-    this.parentid = parentid;
   }
 
   public long getShoppingcardid() {
