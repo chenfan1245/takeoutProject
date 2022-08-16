@@ -13,6 +13,16 @@ public interface TblgoodsMapper {
     List<Tblshop> findAllShopGoods(@Param("shopname")String shopname,
                                    @Param("goodsname")String goodsname,
                                    @Param("typeid")long typeid);
+    // 查询店铺收到的评分
+    List<Double> findScore(@Param("shopid")long shopid);
+    // 修改商家评分（根据收到的评分来算）
+    boolean updateScore(@Param("shopscore")double shopscore,
+                        @Param("shopid")long shopid);
+    // 查询已完成的订单数量
+    long findSales (@Param("shopid")long shopid);
+    // 修改商家的销量
+    boolean updateSales(@Param("shopsales")long shopsales,
+                        @Param("shopid")long shopid);
 
     // 根据店铺id找到该店铺信息
     Tblshop findShop (@Param("shopid")long shopid);

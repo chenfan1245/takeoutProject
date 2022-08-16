@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/admin")
@@ -208,8 +209,19 @@ public class UserController {
     @RequestMapping(value="/findAllShop",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
     public String findAllShop(String shopname,String goodsname,long typeid){
         System.out.println("------首页显示所有店铺------");
-        List<Tblshop> shopList = tblgoodsService.findAllShopGoods(shopname,goodsname,typeid);
-        String json = JSON.toJSONString(shopList);
+        for (Tblshop tblshop : tblgoodsService.findAllShopGoods(shopname,goodsname,typeid)) {
+            long shopid = tblshop.getShopid();
+            List<Double> scoreList = tblgoodsService.findScore(shopid);
+            Double scoreAvg = 5.0;
+            if (!scoreList.isEmpty()) {
+                scoreAvg = scoreList.stream().collect(Collectors.averagingDouble(Double::doubleValue));
+            }
+            boolean flag1 = tblgoodsService.updateScore(scoreAvg,shopid);
+            long salesSum = tblgoodsService.findSales(shopid);
+            boolean flag2 = tblgoodsService.updateSales(salesSum,shopid);
+        }
+        List<Tblshop> shopsList = tblgoodsService.findAllShopGoods(shopname,goodsname,typeid);
+        String json = JSON.toJSONString(shopsList);
         return json;
     }
 

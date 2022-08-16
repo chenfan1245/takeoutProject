@@ -82,6 +82,44 @@ public class Tblshop {
   public Tblshop() {
   }
 
+  @Override
+  public String toString() {
+    return "商家{" +
+            "商家id=" + shopid +
+            ", 角色id=" + roleid +
+            ", 店铺名称='" + shopname + '\'' +
+            ", 商家帐号（手机号）='" + shoptel + '\'' +
+            ", 开始营业时间=" + opentime +
+            ", 结束营业时间=" + endtime +
+            ", 商家密码='" + shoppwd + '\'' +
+            ", 店铺地址='" + shopaddress + '\'' +
+            ", 营业执照='" + buslicense + '\'' +
+            ", 营业许可证='" + foodlicense + '\'' +
+            ", 店铺简介='" + shopinfo + '\'' +
+            ", 商家状态='" + shopstate + '\'' +
+            ", 店铺审核情况='" + auditstate + '\'' +
+            ", 收入=" + income +
+            ", 店铺销量=" + shopsales +
+            ", 店铺评分=" + shopscore +
+            ", 法人姓名='" + legalpersonname + '\'' +
+            ", 法人身份证号='" + legalpersonid + '\'' +
+            ", 商品id=" + goodsid +
+            ", 类型id=" + typeid +
+            ", 商家商品分类类型id=" + shopgoodstypeid +
+            ", 商品名称='" + goodsname + '\'' +
+            ", 商品数量=" + goodsnum +
+            ", 价格=" + goodsprice +
+            ", 商品详细='" + goodsdescribe + '\'' +
+            ", 商品图片='" + goodsimg + '\'' +
+            ", 商品状态='" + goodsstate + '\'' +
+            ", 商品审核状态='" + goodsAuditstate + '\'' +
+            ", 月销量=" + monsales +
+            ", 招牌菜id=" + specialityid +
+            ", 左侧菜单栏名称='" + name + '\'' +
+            ", 左侧菜单栏的父级id=" + parentid +
+            '}' + '\n';
+  }
+
   public double getShopsales() {
     return shopsales;
   }
@@ -354,41 +392,5 @@ public class Tblshop {
     this.legalpersonid = legalpersonid;
   }
 
-  @Override
-  public String toString() {
-    return "商家{" +
-            "商家id=" + shopid +
-            ", 角色id=" + roleid +
-            ", 店铺名称='" + shopname + '\'' +
-            ", 商家帐号（手机号）='" + shoptel + '\'' +
-            ", 开始营业时间=" + opentime +
-            ", 结束营业时间=" + endtime +
-            ", 商家密码='" + shoppwd + '\'' +
-            ", 店铺地址='" + shopaddress + '\'' +
-            ", 营业执照='" + buslicense + '\'' +
-            ", 营业许可证='" + foodlicense + '\'' +
-            ", 店铺简介='" + shopinfo + '\'' +
-            ", 商家状态='" + shopstate + '\'' +
-            ", 店铺审核情况='" + auditstate + '\'' +
-            ", 收入=" + income +
-            ", 店铺销量=" + shopsales +
-            ", 店铺评分=" + shopscore +
-            ", 法人姓名='" + legalpersonname + '\'' +
-            ", 法人身份证号='" + legalpersonid + '\'' +
-            ", 商品id=" + goodsid +
-            ", 类型id=" + typeid +
-            ", 商家商品分类类型id=" + shopgoodstypeid +
-            ", 商品名称='" + goodsname + '\'' +
-            ", 商品数量=" + goodsnum +
-            ", 价格=" + goodsprice +
-            ", 商品详细='" + goodsdescribe + '\'' +
-            ", 商品图片='" + goodsimg + '\'' +
-            ", 商品状态='" + goodsstate + '\'' +
-            ", 商品审核状态='" + goodsAuditstate + '\'' +
-            ", 月销量=" + monsales +
-            ", 招牌菜id=" + specialityid +
-            ", 左侧菜单栏名称='" + name + '\'' +
-            ", 左侧菜单栏的父级id=" + parentid +
-            '}' + '\n';
-  }
+
 }

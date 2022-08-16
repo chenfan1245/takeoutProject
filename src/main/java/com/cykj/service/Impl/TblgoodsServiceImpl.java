@@ -20,6 +20,30 @@ public class TblgoodsServiceImpl implements TblgoodsService {
         return goodsMapper.findAllShopGoods(shopname, goodsname, typeid);
     }
 
+    // 查询店铺收到的评分
+    @Override
+    public List<Double> findScore(long shopid) {
+        return goodsMapper.findScore(shopid);
+    }
+
+    // 修改商家评分（根据收到的评分来算）
+    @Override
+    public boolean updateScore(double shopscore, long shopid) {
+        return goodsMapper.updateScore(shopscore, shopid);
+    }
+
+    // 查询已完成的订单数量
+    @Override
+    public long findSales(long shopid) {
+        return goodsMapper.findSales(shopid);
+    }
+
+    // 修改商家的销量
+    @Override
+    public boolean updateSales(long shopsales, long shopid) {
+        return goodsMapper.updateSales(shopsales, shopid);
+    }
+
     // 根据店铺id找到该店铺信息
     @Override
     public Tblshop findShop(long shopid) {
