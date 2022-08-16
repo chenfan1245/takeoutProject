@@ -2,12 +2,7 @@ package com.cykj.web;
 
 import com.alibaba.fastjson.JSON;
 import com.cykj.bean.*;
-import com.cykj.mapper.TblredpacketMapper;
-import com.cykj.mapper.TbluserMapper;
-import com.cykj.service.TblcommentService;
-import com.cykj.service.TblgoodsService;
-import com.cykj.service.TblshoppingcarService;
-import com.cykj.service.TbluserSeriver;
+import com.cykj.service.*;
 import com.cykj.utils.SMSUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -34,7 +29,7 @@ public class UserController {
     @Autowired
     TblgoodsService tblgoodsService;
     @Autowired
-    TblredpacketMapper tblredpacketMapper;
+    TblredpacketService tblredpacketService;
     @Autowired
     TblcommentService tblcommentService;
     @Autowired
@@ -145,7 +140,7 @@ public class UserController {
     @RequestMapping(value="/findUserRedPacket",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
     public String findUserRedPacket(long userid){
         System.out.println("------显示我的红包------");
-        List<Tblredpacket> redpacketList = tblredpacketMapper.findUserRedPacket(userid);
+        List<Tblredpacket> redpacketList = tblredpacketService.findUserRedPacket(userid);
         String json = JSON.toJSONString(redpacketList);
         return json;
     }
