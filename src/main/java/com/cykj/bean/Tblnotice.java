@@ -16,7 +16,7 @@ public class Tblnotice {
   @ApiModelProperty(value = "角色id")       // 用于区分接收人是用户还是骑手还是商家
   private long roleid;
   @ApiModelProperty(value = "发送时间")
-  private java.sql.Date noticetime;
+  private String noticetime;
   @ApiModelProperty(value = "系统消息状态（未读 / 已读）")
   private String noticestate;
 
@@ -66,11 +66,11 @@ public class Tblnotice {
     this.roleid = roleid;
   }
 
-  public java.sql.Date getNoticetime() {
+  public String getNoticetime() {
     return noticetime;
   }
 
-  public void setNoticetime(java.sql.Date noticetime) {
+  public void setNoticetime(String noticetime) {
     this.noticetime = noticetime;
   }
 

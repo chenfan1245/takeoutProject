@@ -29,6 +29,37 @@ public class Tblgoods {
   private String auditstate;
   @ApiModelProperty(value = "月销量")
   private long monsales;
+  /*购买商品类*/
+  @ApiModelProperty(value = "id")
+  private long id;
+  @ApiModelProperty(value = "订单id")
+  private long orderid;
+  @ApiModelProperty(value = "购买的商品数量")
+  private long bugnum;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public long getOrderid() {
+    return orderid;
+  }
+
+  public void setOrderid(long orderid) {
+    this.orderid = orderid;
+  }
+
+  public long getBugnum() {
+    return bugnum;
+  }
+
+  public void setBugnum(long bugnum) {
+    this.bugnum = bugnum;
+  }
 
   public Tblgoods() {
   }
@@ -140,4 +171,21 @@ public class Tblgoods {
     this.monsales = monsales;
   }
 
+  @Override
+  public String toString() {
+    return "Tblgoods{" +
+            "goodsid=" + goodsid +
+            ", shopid=" + shopid +
+            ", typeid=" + typeid +
+            ", shopgoodstypeid=" + shopgoodstypeid +
+            ", goodsname='" + goodsname + '\'' +
+            ", goodsnum=" + goodsnum +
+            ", goodsprice=" + goodsprice +
+            ", goodsdescribe='" + goodsdescribe + '\'' +
+            ", goodsimg='" + goodsimg + '\'' +
+            ", goodsstate='" + goodsstate + '\'' +
+            ", auditstate='" + auditstate + '\'' +
+            ", monsales=" + monsales +
+            '}';
+  }
 }

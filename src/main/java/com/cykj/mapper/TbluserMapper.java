@@ -14,4 +14,8 @@ public interface TbluserMapper {
     Tbluser checkTel(@Param("usertel")String usertel);
     //  修改密码
     int setPwd(@Param("usertel")String usertel,@Param("userpwd")String userpwd);
+    //  保存昵称
+    int saveName(@Param("userid")long userid,@Param("username") String username);
+    //  查询用户信息
+    Tbluser findUser(@Param("userid")long userid);
 }

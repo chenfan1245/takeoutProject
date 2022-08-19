@@ -19,4 +19,12 @@
     <update id="setPwd">
         update tbluser set userpwd = #{userpwd} where usertel = #{usertel}
     </update>
+    <!--保存昵称-->
+    <update id="saveName">
+        update tbluser set username = #{username} where userid = #{userid}
+    </update>
+    <!--查询用户信息-->
+    <select id="findUser" resultType="com.cykj.bean.Tbluser">
+        select * from tbluser where userid = #{userid}
+    </select>
 </mapper>

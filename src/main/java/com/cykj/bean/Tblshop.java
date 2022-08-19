@@ -11,6 +11,8 @@ public class Tblshop {
   private long roleid;
   @ApiModelProperty(value = "店铺名称")
   private String shopname;
+  @ApiModelProperty(value = "店铺商标")
+  private String brand;
   @ApiModelProperty(value = "商家登录的帐号（手机号）")
   private String shoptel;
   @ApiModelProperty(value = "开始营业时间")
@@ -40,7 +42,17 @@ public class Tblshop {
   @ApiModelProperty(value = "法人身份证号")
   private String legalpersonid;
 
+
+
   public Tblshop() {
+  }
+
+  public String getBrand() {
+    return brand;
+  }
+
+  public void setBrand(String brand) {
+    this.brand = brand;
   }
 
   public long getShopid() {
