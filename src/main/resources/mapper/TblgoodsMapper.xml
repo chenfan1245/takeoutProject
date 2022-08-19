@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.TblgoodsMapper"><!--命名空间属性：必须要写,java接口映射-->
+    <!-- 显示所有店铺（根据【店铺名】和【商品名】和【商品类型】模糊查询）（商品状态：上架） -->
+    <select id="findAllShopGoods" resultType="com.cykj.bean.Tblshop">
+        select DISTINCT s.* from tblgoods g
+        inner join tblshop s on g.shopid = s.shopid
+        inner join tblgoodstype gt on g.typeid = gt.typeid
+        where g.goodsstate = 20 and s.shopstate = 8        -- 状态：20代表【上架】8代表商家状态【启用】
+        <if test="shopname != null and shopname != ''">
+            and s.shopname like concat('%',#{shopname},'%')
+        </if>
+        <if test="goodsname != null and goodsname != ''">
+            and g.goodsname like concat('%',#{goodsname},'%')
+        </if>
+        <if test="typeid > 0">
+            and gt.typeid = #{typeid}
+        </if>
+    </select>
+    <!-- 查询店铺收到的评分 -->
+    <select id="findScore" resultType="double">
+        select commentscore from tblcomment where shopid = #{shopid} and roleid = 1 and commentscore is not null
+    </select>
+    <!-- 修改商家评分（根据收到的评分来算） -->
+    <update id="updateScore">
+        update tblshop set shopscore = #{shopscore} where shopid = #{shopid}
+    </update>
+    <!-- 查询已完成的订单数量 -->
+    <select id="findSales" resultType="long">
+        select COUNT(*) as count from tblorder where orderstate = 32 and shopid = #{shopid}
+    </select>
+    <!-- 修改商家的销量 -->
+    <update id="updateSales">
+        update tblshop set shopsales = #{shopsales} where shopid = #{shopid}
+    </update>
+
+    <!-- 根据店铺id找到该店铺信息 -->
+    <select id="findShop" resultType="com.cykj.bean.Tblshop">
+        select * from tblshop where shopid = #{shopid}
+    </select>
+
+    <!-- 根据店铺id找到该店铺的招牌菜信息 -->
+    <select id="findSpeciality" resultType="com.cykj.bean.Tblshop">
+        select * from tblspeciality sp
+        inner join tblgoods g on g.goodsid = sp.goodsid
+        inner join tblshop s on s.shopid = g.shopid
+        where s.shopid = #{shopid} and g.goodsstate = 20
+    </select>
+    
+    <!-- 查询显示店铺的左侧菜单栏内容 -->
+    <!-- 根据店铺名称找到shopgoodstypeid -->
+    <select id="findShopgoodstypeid" resultType="com.cykj.bean.Tblshop">
+        select * from tblshopgoodstype where name = #{name}
+    </select>
+    <!-- 根据shopgoodstypeid查询左侧菜单栏内容 -->
+    <select id="findShopGoodsType" resultType="com.cykj.bean.Tblshop">
+        select * from tblshopgoodstype where parentid = #{shopgoodstypeid}
+    </select>
+
+    <!-- 查询店铺内所有商品（模糊查询：左侧菜单栏） -->
+    <select id="findAllGoods" resultType="com.cykj.bean.Tblgoods">
+        select * from tblgoods g
+        inner join tblshop s on g.shopid = s.shopid
+        inner join tblshopgoodstype sgt on sgt.shopgoodstypeid = g.shopgoodstypeid
+        where g.goodsstate = 20 and g.shopid = #{shopid}
+        <if test="shopgoodstypeid >0">
+            and g.shopgoodstypeid = #{shopgoodstypeid}
+        </if>
+    </select>
+
+    <!-- 搜索框搜索商品 -->
+    <select id="findSearchGoods" resultType="com.cykj.bean.Tblgoods">
+        select * from tblgoods g
+        inner join tblshop s on g.shopid = s.shopid
+        where g.goodsstate = 20 and g.shopid = #{shopid}
+        <if test="goodsname != null and goodsname != ''">
+            and g.goodsname like concat('%',#{goodsname},'%')
+        </if>
+    </select>
+
+    <!-- 根据商品id搜索该商品详细信息 -->
+    <select id="findGoods" resultType="com.cykj.bean.Tblgoods">
+        select * from tblgoods where  goodsstate = 20 and goodsid = #{goodsid}
+    </select>
+
+
+</mapper>
