@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,8 +43,6 @@ public class UserController {
     private TblgoodsService tblgoodsService;
     @Autowired
     private TblredpacketService tblredpacketService;
-    @Autowired
-    private TblcommentService tblcommentService;
     @Autowired
     private TblshoppingcarService tblshoppingcarService;
 
