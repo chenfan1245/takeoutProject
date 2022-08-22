@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class Tblrider {
   @ApiModelProperty(value = "骑手id")
   private long riderid;
+  @ApiModelProperty(value = "骑手姓名")
+  private String ridername;
   @ApiModelProperty(value = "骑手帐号（手机号）")
   private String ridertel;
   @ApiModelProperty(value = "骑手密码")
@@ -28,6 +30,13 @@ public class Tblrider {
   @ApiModelProperty(value = "角色id")
   private long roleid;
 
+  public String getRidername() {
+    return ridername;
+  }
+
+  public void setRidername(String ridername) {
+    this.ridername = ridername;
+  }
 
   public long getRiderid() {
     return riderid;

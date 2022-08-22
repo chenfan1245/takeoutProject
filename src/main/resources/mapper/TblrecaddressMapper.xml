@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cykj.mapper.TblrecaddressMapper">
+    <!--查询用户的收货地址-->
+    <select id="findAddress" resultType="com.cykj.bean.Tblrecaddress">
+        select * from tblrecaddress where userid = #{userid}
+    </select>
+    <!--修改收货地址-->
+    <update id="updAddress" parameterType="com.cykj.bean.Tblrecaddress">
+        update tblrecaddress set recaddress = #{recaddress} , housenum = #{housenum} ,
+                                 recname = #{recname} , rectel = #{rectel} , isdefault = #{isdefault}
+        where addressid = #{addressid}
+    </update>
+    <!--增加收货地址-->
+    <insert id="addAddress" parameterType="com.cykj.bean.Tblrecaddress">
+        insert into tblrecaddress(userid,rectel,recaddress,housenum,recname,isdefault)
+            values (#{userid},#{rectel},#{recaddress},#{housenum},#{recname},#{isdefault})
+    </insert>
+    <!--删除收货地址-->
+    <delete id="delAddress">
+        delete from tblrecaddress where addressid = #{addressid}
+    </delete>
+    <!--清除之前的默认地址-->
+    <update id="clearDefault">
+        update tblrecaddress set isdefault = "" where userid = #{userid}
+    </update>
+</mapper>

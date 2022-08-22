@@ -2,14 +2,14 @@ package com.cykj.service.impl;
 
 import com.cykj.bean.Tbluser;
 import com.cykj.mapper.TbluserMapper;
-import com.cykj.service.TbluserSeriver;
+import com.cykj.service.TbluserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TbluserSeriverImpl implements TbluserSeriver {
+public class TbluserServiceImpl implements TbluserService {
     @Autowired
-    TbluserMapper tbluserMapper;
+    private TbluserMapper tbluserMapper;
     /*登录*/
     @Override
     public Tbluser login(String usertel, String userpwd) {
@@ -43,5 +43,19 @@ public class TbluserSeriverImpl implements TbluserSeriver {
             return 1;
         }
         return 2;
+    }
+
+    @Override
+    public boolean saveName(long userid, String username) {
+        int num = tbluserMapper.saveName(userid, username);
+        if (num > 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Tbluser findUser(long userid) {
+        return tbluserMapper.findUser(userid);
     }
 }

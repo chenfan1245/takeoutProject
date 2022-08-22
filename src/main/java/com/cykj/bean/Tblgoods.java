@@ -31,7 +31,6 @@ public class Tblgoods {
   private String auditstate;
   @ApiModelProperty(value = "月销量")
   private long monsales;
-
   /* 商家 */
   @ApiModelProperty(value = "角色id")
   private long roleid;
@@ -80,6 +79,39 @@ public class Tblgoods {
   private String typename;
   @ApiModelProperty(value = "类型图标")
   private String typeimg;
+  /*购买商品类*/
+  @ApiModelProperty(value = "id")
+  private long id;
+  @ApiModelProperty(value = "订单id")
+  private long orderid;
+  @ApiModelProperty(value = "购买的商品数量")
+  private long bugnum;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public long getOrderid() {
+    return orderid;
+  }
+
+  public void setOrderid(long orderid) {
+    this.orderid = orderid;
+  }
+
+  public long getBugnum() {
+    return bugnum;
+  }
+
+  public void setBugnum(long bugnum) {
+    this.bugnum = bugnum;
+  }
+
+
 
   public Tblgoods() {
   }
@@ -267,6 +299,7 @@ public class Tblgoods {
   public void setGoodsid(long goodsid) {
     this.goodsid = goodsid;
   }
+
 
   public long getShopid() {
     return shopid;

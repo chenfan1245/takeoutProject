@@ -5,6 +5,8 @@ import com.cykj.bean.Tblgoods;
 import com.cykj.bean.Tblshop;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -19,4 +21,10 @@ public interface TblcommentMapper {
     List<Tblcomment> findComment(@Param("userid")long userid,
                                  @Param("roleid")long roleid);
 
+    // 用户评论
+    int sendComment(@Param("orderid")long orderid,
+                    @Param("userid")long userid,
+                    @Param("roleid")long roleid,
+                    @Param("commentcontent")String commentcontent,
+                    @Param("commentscore")long commentscore);
 }

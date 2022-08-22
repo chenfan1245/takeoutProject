@@ -19,6 +19,16 @@ public class Tblrecaddress {
   private String recname;
   @ApiModelProperty(value = "备注（家 / 公司 / 学校）")
   private String info;
+  @ApiModelProperty(value = "默认地址")
+  private String isdefault;
+
+  public String getIsdefault() {
+    return isdefault;
+  }
+
+  public void setIsdefault(String isdefault) {
+    this.isdefault = isdefault;
+  }
 
   public Tblrecaddress() {
   }
@@ -85,4 +95,17 @@ public class Tblrecaddress {
     this.info = info;
   }
 
+  @Override
+  public String toString() {
+    return "Tblrecaddress{" +
+            "addressid=" + addressid +
+            ", userid=" + userid +
+            ", rectel='" + rectel + '\'' +
+            ", recaddress='" + recaddress + '\'' +
+            ", housenum='" + housenum + '\'' +
+            ", recname='" + recname + '\'' +
+            ", info='" + info + '\'' +
+            ", isdefault='" + isdefault + '\'' +
+            '}';
+  }
 }
