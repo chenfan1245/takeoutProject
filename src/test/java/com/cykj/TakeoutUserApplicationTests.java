@@ -28,31 +28,30 @@ class TakeoutUserApplicationTests {
     @Test
     void contextLoads() {
         // 前端传来的数据
-        long userid = 2;
-        List<Long> specidList = new ArrayList<>();
-        specidList.add(30L);
-        specidList.add(33L);
-        specidList.add(47L);
-        specidList.add(50L);
+        long userid = 1;
 
         // 测试
-        List<String> shopNameList = tblshoppingcarService.findCarShop(userid);  // 店铺名称列表
-        List<Tblgoodsspec> specnNameList = new ArrayList<>(); // 规格内容列表
-        List<Tblshoppingcard> goodsList = new ArrayList<>();    // 商品列表
-        List<Long> goodsidList = new ArrayList<>();     // 商品id列表
-        goodsList = tblshoppingcarService.findCarGoods(userid, shopNameList);
-        for (Tblshoppingcard tblshoppingcard : goodsList) {
-            goodsidList.add(tblshoppingcard.getGoodsid());
-            specnNameList = tblshoppingcarService.findCarGoodsSpec(userid, goodsidList, specidList);
+        List<Tblshoppingcard> shopsList = tblshoppingcarService.findCarShopName(userid);  // 店铺列表
+        for(Tblshoppingcard tblshoppingcard : shopsList) {
+            String shopname = tblshoppingcard.getShopname();
+            List<Tblshoppingcard> shopList = tblshoppingcarService.findCarShop(shopname);
+            for (Tblshoppingcard shop : shopList) {
+                tblshoppingcard.setShopid(shop.getShopid());
+                tblshoppingcard.setRoleid(shop.getRoleid());
+                tblshoppingcard.setOpentime(shop.getOpentime());
+                tblshoppingcard.setEndtime(shop.getEndtime());
+                tblshoppingcard.setShopaddress(shop.getShopaddress());
+                tblshoppingcard.setShopstate(shop.getShopstate());
+                tblshoppingcard.setAuditstate(shop.getAuditstate());
+            }
+            long shopid = tblshoppingcard.getShopid();
+            List<Tblshoppingcard> goodsList = tblshoppingcarService.findCarGoods(userid,shopid);
+            tblshoppingcard.setCart(goodsList);
         }
 
         // 打印
         System.out.println("-------------------------------------------------------------");
-        System.out.println("商家列表："+shopNameList);
-        System.out.println("-------------------------------------------------------------");
-        System.out.println("规格列表："+specnNameList);
-        System.out.println("-------------------------------------------------------------");
-        System.out.println("商品列表："+goodsList);
+        System.out.println("购物车列表："+shopsList);
         System.out.println("-------------------------------------------------------------");
 
     }

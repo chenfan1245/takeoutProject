@@ -56,23 +56,16 @@ public class TblgoodsServiceImpl implements TblgoodsService {
         return goodsMapper.findSpeciality(shopid);
     }
 
-    /* 查询显示店铺的左侧菜单栏内容 */
-    // 根据店铺名称找到shopgoodstypeid
+    // 根据shopid,查询显示店铺的左侧菜单栏内容
     @Override
-    public Tblshop findShopgoodstypeid(String name) {
-        return goodsMapper.findShopgoodstypeid(name);
+    public List<Tblshop> findShopGoodsType(long shopid) {
+        return goodsMapper.findShopGoodsType(shopid);
     }
 
-    // 根据shopgoodstypeid查询左侧菜单栏内容
+    // 查询店铺内所有商品
     @Override
-    public List<Tblshop> findShopGoodsType(long shopgoodstypeid) {
-        return goodsMapper.findShopGoodsType(shopgoodstypeid);
-    }
-
-    // 查询店铺内所有商品（模糊查询：左侧菜单栏）
-    @Override
-    public List<Tblgoods> findAllGoods(long shopid, long shopgoodstypeid) {
-        return goodsMapper.findAllGoods(shopid, shopgoodstypeid);
+    public List<Tblgoods> findAllGoods(long shopid) {
+        return goodsMapper.findAllGoods(shopid);
     }
 
     // 搜索框搜索商品

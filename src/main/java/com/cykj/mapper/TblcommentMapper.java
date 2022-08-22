@@ -16,6 +16,7 @@ public interface TblcommentMapper {
     List<Tblcomment> findNoCommentGoods(@Param("userid")long userid,
                                         @Param("orderid")long orderid);
     // 已评价的订单信息和评价内容
-    List<Tblcomment> findComment(@Param("userid")long userid);
+    List<Tblcomment> findComment(@Param("userid")long userid,
+                                 @Param("roleid")long roleid);
 
 }

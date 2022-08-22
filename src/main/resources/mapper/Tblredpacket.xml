@@ -10,4 +10,10 @@
         where urp.state = 43 and urp.userid = #{userid}
     </select>
 
+    <!-- 根据系统日期去修改“我的红包状态” -->
+    <update id="updateDate">
+        update tbluserredpacket set state = 45 where state != 44
+        and invaliddate BETWEEN '2020-01-01' and #{nowTime}
+    </update>
+
 </mapper>

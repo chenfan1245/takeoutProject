@@ -20,24 +20,21 @@
     </select>
 
     <!-- 购物车显示内容：商家名称 -->
-    <select id="findCarShop" resultType="String">
+    <select id="findCarShopName" resultType="com.cykj.bean.Tblshoppingcard">
         select distinct shopname from tblshop s
         inner join tblshoppingcard sc on sc.shopid = s.shopid
         where sc.userid = #{userid}
     </select>
-
+    <!--根据商家名称查到店铺信息-->
+    <select id="findCarShop" resultType="com.cykj.bean.Tblshoppingcard">
+        select * from tblshop where shopname = #{shopname} and auditstate = 17
+    </select>
     <!-- 购物车显示内容：商品信息 -->
     <select id="findCarGoods" resultType="com.cykj.bean.Tblshoppingcard">
-        select sc.*,s.shopname,g.goodsname,g.goodsprice,g.goodsimg,g.goodsnum from tblshoppingcard sc
+        select * from tblshoppingcard sc
         inner join tblgoods g on g.goodsid = sc.goodsid
         inner join tblshop s on s.shopid = g.shopid
-        where sc.userid = #{userid}
-        <if test="shopnameList != null and shopnameList.size() > 0">
-            and s.shopname in
-            <foreach collection="shopnameList" open="(" close=")" separator="," item="shopname">
-                #{shopname}
-            </foreach>
-        </if>
+        where sc.userid = #{userid} and s.shopid = #{shopid}
     </select>
 
     <!-- 购物车显示内容：商品的规格内容 -->

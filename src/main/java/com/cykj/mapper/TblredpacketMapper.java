@@ -12,5 +12,7 @@ import java.util.List;
 public interface TblredpacketMapper {
     // 查询用户拥有的未使用的红包
     List<Tblredpacket> findUserRedPacket(@Param("userid")long userid);
+    // 根据系统日期去修改“我的红包状态”
+    boolean updateDate(@Param("nowTime")String nowTime);
 
 }

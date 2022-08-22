@@ -22,10 +22,16 @@ public class Tblcomment {
   private String commentcontent;
   @ApiModelProperty(value = "评分")
   private long commentscore;
+  @ApiModelProperty(value = "商家回复状态")
+  private long responsestatus;
+  @ApiModelProperty(value = "商家回复")
+  private String shopcomment;
 
   /* 商家 */
   @ApiModelProperty(value = "店铺名称")
   private String shopname;
+  @ApiModelProperty(value = "商标图片")
+  private String brand;
   @ApiModelProperty(value = "店铺销量")
   private double shopsales;
   @ApiModelProperty(value = "店铺评分")
@@ -45,9 +51,9 @@ public class Tblcomment {
   private long bugnum;
   /* 订单 */
   @ApiModelProperty(value = "下单时间")
-  private java.sql.Timestamp ordertime;
+  private String ordertime;
   @ApiModelProperty(value = "送达时间")
-  private java.sql.Timestamp deliverytime;
+  private String deliverytime;
   @ApiModelProperty(value = "实付款（商品总价格 - 红包金额）")
   private double actualmoney;
   @ApiModelProperty(value = "订单状态（待商家接单 / 待骑手抢单 / 商家备货中 / 待骑手取货 / 待送达 / 已完成 / 已取消 / 退单中 / 已退单）")
@@ -68,7 +74,9 @@ public class Tblcomment {
             ", 评价id=" + commentid +
             ", 角色id=" + roleid +
             ", 评价内容='" + commentcontent + '\'' +
+            ", 商家评价='" + shopcomment + '\'' +
             ", 评分=" + commentscore +
+            ", 商家回复状态=" + responsestatus +
             ", 店铺名称='" + shopname + '\'' +
             ", 店铺销量=" + shopsales +
             ", 店铺评分=" + shopscore +
@@ -84,6 +92,30 @@ public class Tblcomment {
             ", 订单状态='" + orderstate + '\'' +
             ", 订单中的商品列表='" + goodsList + '\'' +
             '}' + '\n';
+  }
+
+  public long getResponsestatus() {
+    return responsestatus;
+  }
+
+  public void setResponsestatus(long responsestatus) {
+    this.responsestatus = responsestatus;
+  }
+
+  public String getShopcomment() {
+    return shopcomment;
+  }
+
+  public void setShopcomment(String shopcomment) {
+    this.shopcomment = shopcomment;
+  }
+
+  public String getBrand() {
+    return brand;
+  }
+
+  public void setBrand(String brand) {
+    this.brand = brand;
   }
 
   public List<Tblcomment> getGoodsList() {
@@ -166,19 +198,19 @@ public class Tblcomment {
     this.bugnum = bugnum;
   }
 
-  public Timestamp getOrdertime() {
+  public String getOrdertime() {
     return ordertime;
   }
 
-  public void setOrdertime(Timestamp ordertime) {
+  public void setOrdertime(String ordertime) {
     this.ordertime = ordertime;
   }
 
-  public Timestamp getDeliverytime() {
+  public String getDeliverytime() {
     return deliverytime;
   }
 
-  public void setDeliverytime(Timestamp deliverytime) {
+  public void setDeliverytime(String deliverytime) {
     this.deliverytime = deliverytime;
   }
 

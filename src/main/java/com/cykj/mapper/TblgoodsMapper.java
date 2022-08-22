@@ -29,15 +29,11 @@ public interface TblgoodsMapper {
     // 根据店铺id找到该店铺的招牌菜信息
     List<Tblshop> findSpeciality(@Param("shopid")long shopid);
 
-    /* 查询显示店铺的左侧菜单栏内容 */
-    // 根据店铺名称找到shopgoodstypeid
-    Tblshop findShopgoodstypeid(@Param("name")String name);
-    // 根据shopgoodstypeid查询左侧菜单栏内容
-    List<Tblshop> findShopGoodsType(@Param("shopgoodstypeid")long shopgoodstypeid);
+    // 根据shopid,查询显示店铺的左侧菜单栏内容
+    List<Tblshop> findShopGoodsType(@Param("shopid")long shopid);
 
-    // 查询店铺内所有商品（模糊查询：左侧菜单栏）
-    List<Tblgoods> findAllGoods (@Param("shopid")long shopid,
-                              @Param("shopgoodstypeid")long shopgoodstypeid);
+    // 查询店铺内所有商品
+    List<Tblgoods> findAllGoods (@Param("shopid")long shopid);
     // 搜索框搜索商品
     List<Tblgoods> findSearchGoods(@Param("shopid")long shopid,
                                    @Param("goodsname")String goodsname);

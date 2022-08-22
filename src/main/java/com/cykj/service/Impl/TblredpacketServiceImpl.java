@@ -18,4 +18,10 @@ public class TblredpacketServiceImpl implements TblredpacketService {
     public List<Tblredpacket> findUserRedPacket(long userid) {
         return redpacketMapper.findUserRedPacket(userid);
     }
+
+    // 根据系统日期去修改“我的红包状态”
+    @Override
+    public boolean updateDate(String nowTime) {
+        return redpacketMapper.updateDate(nowTime);
+    }
 }

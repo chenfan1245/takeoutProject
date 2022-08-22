@@ -27,7 +27,7 @@ public class TblcommentServiceImpl implements TblcommentService {
 
     // 已评价的订单信息和评价内容
     @Override
-    public List<Tblcomment> findComment(long userid) {
-        return commentMapper.findComment(userid);
+    public List<Tblcomment> findComment(long userid,long roleid) {
+        return commentMapper.findComment(userid,roleid);
     }
 }

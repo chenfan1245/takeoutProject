@@ -23,14 +23,11 @@ public interface TblgoodsService {
     // 根据店铺id找到该店铺的招牌菜信息
     List<Tblshop> findSpeciality(long shopid);
 
-    /* 查询显示店铺的左侧菜单栏内容 */
-    // 根据店铺名称找到shopgoodstypeid
-    Tblshop findShopgoodstypeid(String name);
-    // 根据shopgoodstypeid查询左侧菜单栏内容
-    List<Tblshop> findShopGoodsType(long shopgoodstypeid);
+    // 根据shopid,查询显示店铺的左侧菜单栏内容
+    List<Tblshop> findShopGoodsType(long shopid);
 
-    // 查询店铺内所有商品（模糊查询：左侧菜单栏）
-    List<Tblgoods> findAllGoods (long shopid, long shopgoodstypeid);
+    // 查询店铺内所有商品
+    List<Tblgoods> findAllGoods (long shopid);
     // 搜索框搜索商品
     List<Tblgoods> findSearchGoods(long shopid, String goodsname);
     // 根据商品id搜索该商品详细信息

@@ -11,6 +11,8 @@ public class Tblshop {
   private long roleid;
   @ApiModelProperty(value = "店铺名称")
   private String shopname;
+  @ApiModelProperty(value = "商标图片")
+  private String brand;
   @ApiModelProperty(value = "商家登录的帐号（手机号）")
   private String shoptel;
   @ApiModelProperty(value = "开始营业时间")
@@ -88,6 +90,7 @@ public class Tblshop {
             "商家id=" + shopid +
             ", 角色id=" + roleid +
             ", 店铺名称='" + shopname + '\'' +
+            ", 商标图片='" + brand + '\'' +
             ", 商家帐号（手机号）='" + shoptel + '\'' +
             ", 开始营业时间=" + opentime +
             ", 结束营业时间=" + endtime +
@@ -118,6 +121,14 @@ public class Tblshop {
             ", 左侧菜单栏名称='" + name + '\'' +
             ", 左侧菜单栏的父级id=" + parentid +
             '}' + '\n';
+  }
+
+  public String getBrand() {
+    return brand;
+  }
+
+  public void setBrand(String brand) {
+    this.brand = brand;
   }
 
   public double getShopsales() {

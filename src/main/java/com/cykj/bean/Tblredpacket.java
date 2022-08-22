@@ -26,9 +26,9 @@ public class Tblredpacket {
   @ApiModelProperty(value = "用户id")
   private long userid;
   @ApiModelProperty(value = "领取红包日期")
-  private java.sql.Date receivedate;
+  private String receivedate;
   @ApiModelProperty(value = "红包过期的日期")
-  private java.sql.Date invaliddate;
+  private String invaliddate;
   @ApiModelProperty(value = "红包状态（未使用 / 已使用 / 已失效）")
   private String state;
   /* 用户 */
@@ -56,19 +56,19 @@ public class Tblredpacket {
     this.userid = userid;
   }
 
-  public Date getReceivedate() {
+  public String getReceivedate() {
     return receivedate;
   }
 
-  public void setReceivedate(Date receivedate) {
+  public void setReceivedate(String receivedate) {
     this.receivedate = receivedate;
   }
 
-  public Date getInvaliddate() {
+  public String getInvaliddate() {
     return invaliddate;
   }
 
-  public void setInvaliddate(Date invaliddate) {
+  public void setInvaliddate(String invaliddate) {
     this.invaliddate = invaliddate;
   }
 

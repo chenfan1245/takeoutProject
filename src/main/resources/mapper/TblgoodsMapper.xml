@@ -48,26 +48,18 @@
         inner join tblshop s on s.shopid = g.shopid
         where s.shopid = #{shopid} and g.goodsstate = 20
     </select>
-    
-    <!-- 查询显示店铺的左侧菜单栏内容 -->
-    <!-- 根据店铺名称找到shopgoodstypeid -->
-    <select id="findShopgoodstypeid" resultType="com.cykj.bean.Tblshop">
-        select * from tblshopgoodstype where name = #{name}
-    </select>
-    <!-- 根据shopgoodstypeid查询左侧菜单栏内容 -->
+
+    <!-- 根据shopid,查询显示店铺的左侧菜单栏内容 -->
     <select id="findShopGoodsType" resultType="com.cykj.bean.Tblshop">
-        select * from tblshopgoodstype where parentid = #{shopgoodstypeid}
+        select * from tblshopgoodstype where shopid = #{shopid} and parentid != 0
     </select>
 
-    <!-- 查询店铺内所有商品（模糊查询：左侧菜单栏） -->
+    <!-- 查询店铺内所有商品 -->
     <select id="findAllGoods" resultType="com.cykj.bean.Tblgoods">
         select * from tblgoods g
         inner join tblshop s on g.shopid = s.shopid
         inner join tblshopgoodstype sgt on sgt.shopgoodstypeid = g.shopgoodstypeid
         where g.goodsstate = 20 and g.shopid = #{shopid}
-        <if test="shopgoodstypeid >0">
-            and g.shopgoodstypeid = #{shopgoodstypeid}
-        </if>
     </select>
 
     <!-- 搜索框搜索商品 -->

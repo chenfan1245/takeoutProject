@@ -3,6 +3,7 @@ package com.cykj.bean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.sql.Time;
 import java.util.List;
 
 @ApiModel("购物车类")
@@ -30,8 +31,20 @@ public class Tblshoppingcard {
   private long goodsnum;
   @ApiModelProperty(value = "商品价格")
   private double goodsprice;
+  @ApiModelProperty(value = "商品图片")
+  private String goodsimg;
+  @ApiModelProperty(value = "开始营业时间")
+  private java.sql.Time opentime;
+  @ApiModelProperty(value = "结束营业时间")
+  private java.sql.Time endtime;
+  @ApiModelProperty(value = "店铺地址")
+  private String shopaddress;
+  @ApiModelProperty(value = "店铺状态（营业 / 休息）")
+  private String shopstate;
+  @ApiModelProperty(value = "商家审核情况（未审核 / 审核通过 / 审核未通过）")
+  private String auditstate;
   /* 商品列表 */
-  private List<Tblshoppingcard> goodsList;
+  private List<Tblshoppingcard> cart;
 
   public Tblshoppingcard() {
   }
@@ -49,15 +62,68 @@ public class Tblshoppingcard {
             ", 商品名称='" + goodsname + '\'' +
             ", 商品库存=" + goodsnum +
             ", 商品价格=" + goodsprice +
+            ", 商品图片=" + goodsimg +
+            ", 开始营业时间=" + opentime +
+            ", 结束营业时间=" + endtime +
+            ", 店铺地址=" + shopaddress +
+            ", 商品列表=" + cart +
             '}' + '\n';
   }
 
-  public List<Tblshoppingcard> getGoodsList() {
-    return goodsList;
+  public String getShopstate() {
+    return shopstate;
   }
 
-  public void setGoodsList(List<Tblshoppingcard> goodsList) {
-    this.goodsList = goodsList;
+  public void setShopstate(String shopstate) {
+    this.shopstate = shopstate;
+  }
+
+  public String getAuditstate() {
+    return auditstate;
+  }
+
+  public void setAuditstate(String auditstate) {
+    this.auditstate = auditstate;
+  }
+
+  public String getShopaddress() {
+    return shopaddress;
+  }
+
+  public void setShopaddress(String shopaddress) {
+    this.shopaddress = shopaddress;
+  }
+
+  public Time getOpentime() {
+    return opentime;
+  }
+
+  public void setOpentime(Time opentime) {
+    this.opentime = opentime;
+  }
+
+  public Time getEndtime() {
+    return endtime;
+  }
+
+  public void setEndtime(Time endtime) {
+    this.endtime = endtime;
+  }
+
+  public String getGoodsimg() {
+    return goodsimg;
+  }
+
+  public void setGoodsimg(String goodsimg) {
+    this.goodsimg = goodsimg;
+  }
+
+  public List<Tblshoppingcard> getCart() {
+    return cart;
+  }
+
+  public void setCart(List<Tblshoppingcard> cart) {
+    this.cart = cart;
   }
 
   public long getShopid() {

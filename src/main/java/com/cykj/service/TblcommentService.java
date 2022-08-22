@@ -11,5 +11,5 @@ public interface TblcommentService {
     // 查询待评价的订单的商品信息
     List<Tblcomment> findNoCommentGoods(long userid, long orderid);
     // 已评价的订单信息和评价内容
-    List<Tblcomment> findComment(long userid);
+    List<Tblcomment> findComment(long userid,long roleid);
 }

@@ -32,16 +32,21 @@ public class TblshoppingcarServiceImpl implements TblshoppingcarService {
         return shoppingcarMapper.findGoodsNum(goodsid);
     }
 
-    // 购物车显示内容：商家名称
     @Override
-    public List<String> findCarShop(long userid) {
-        return shoppingcarMapper.findCarShop(userid);
+    public List<Tblshoppingcard> findCarShopName(long userid) {
+        return shoppingcarMapper.findCarShopName(userid);
     }
+
+    @Override
+    public List<Tblshoppingcard> findCarShop(String shopname) {
+        return shoppingcarMapper.findCarShop(shopname);
+    }
+
 
     // 购物车显示内容：商品信息
     @Override
-    public List<Tblshoppingcard> findCarGoods(long userid, List<String> shopnameList) {
-        return shoppingcarMapper.findCarGoods(userid, shopnameList);
+    public List<Tblshoppingcard> findCarGoods(long userid, long shopid) {
+        return shoppingcarMapper.findCarGoods(userid, shopid);
     }
 
     // 购物车显示内容：商品的规格内容

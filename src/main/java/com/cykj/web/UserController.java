@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -43,23 +41,27 @@ public class UserController {
             @ApiImplicitParam(name = "specidList",value = "加入购物车时所选择的那些规格id")
     })
     @RequestMapping(value="/findShoppingcar",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
-    public String findShoppingcar(long userid, List<Long> specidList){
+    public String findShoppingcar(long userid){
         System.out.println("------显示购物车信息------");
-        List<String> shopNameList = tblshoppingcarService.findCarShop(userid);  // 店铺名称列表
-        List<Tblgoodsspec> specnNameList = new ArrayList<>(); // 规格内容列表
-        List<Tblshoppingcard> goodsList = new ArrayList<>();    // 商品列表
-        List<Long> goodsidList = new ArrayList<>();     // 商品id列表
-        goodsList = tblshoppingcarService.findCarGoods(userid, shopNameList);
-        for (Tblshoppingcard tblshoppingcard : goodsList) {
-            goodsidList.add(tblshoppingcard.getGoodsid());
-            specnNameList = tblshoppingcarService.findCarGoodsSpec(userid, goodsidList, specidList);
+        List<Tblshoppingcard> carsList = tblshoppingcarService.findCarShopName(userid);  // 店铺列表
+        for(Tblshoppingcard tblshoppingcard : carsList) {
+            String shopname = tblshoppingcard.getShopname();
+            List<Tblshoppingcard> shopList = tblshoppingcarService.findCarShop(shopname);
+            for (Tblshoppingcard shop : shopList) {
+                tblshoppingcard.setShopid(shop.getShopid());
+                tblshoppingcard.setRoleid(shop.getRoleid());
+                tblshoppingcard.setOpentime(shop.getOpentime());
+                tblshoppingcard.setEndtime(shop.getEndtime());
+                tblshoppingcard.setShopaddress(shop.getShopaddress());
+                tblshoppingcard.setShopstate(shop.getShopstate());
+                tblshoppingcard.setAuditstate(shop.getAuditstate());
+            }
+            long shopid = tblshoppingcard.getShopid();
+            List<Tblshoppingcard> goodsList = tblshoppingcarService.findCarGoods(userid,shopid);
+            tblshoppingcard.setCart(goodsList);
         }
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("shopNameList",shopNameList);   // 店铺名称列表
-        map.put("specnNameList",specnNameList); // 含用户id、商品id、商品名、规格内容
-        map.put("goodsList", goodsList);        // 商品列表
-        String json = JSON.toJSONString(map);
+        String json = JSON.toJSONString(carsList);
         return json;
     }
 
@@ -73,7 +75,7 @@ public class UserController {
     @RequestMapping("/updateShoppingcarNum")
     public String updateShoppingcarNum(long bugnum, long goodsid, long userid){
         int goodsnum = tblshoppingcarService.findGoodsNum(goodsid);
-        if (bugnum < goodsnum) {
+        if (bugnum <= goodsnum) {
             boolean flag = tblshoppingcarService.updateShoppingcarNum(bugnum, goodsid, userid);
             if (flag) {
                 return "1";     // 购物车内商品数量更新成功
@@ -110,8 +112,18 @@ public class UserController {
     @RequestMapping(value="/findComment",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
     public String findComment(long userid){
         System.out.println("------显示已评价的订单信息------");
-        List<Tblcomment> commentList = tblcommentService.findComment(userid); // 已评价的订单信息和所有评价内容
-        String json = JSON.toJSONString(commentList);
+        List<Tblcomment> userCommentList = tblcommentService.findComment(userid,1); // 已评价的订单信息和用户评价内容
+        List<Tblcomment> shopCommentList = tblcommentService.findComment(userid,3); // 商家评价内容
+        for (Tblcomment user : userCommentList) {
+            for (Tblcomment shop : shopCommentList) {
+                String shopComment = shop.getCommentcontent();
+                if (user.getOrderid() == shop.getOrderid()) {
+                    user.setShopcomment(shopComment);
+                }
+            }
+        }
+
+        String json = JSON.toJSONString(userCommentList);
         return json;
     }
 
@@ -127,7 +139,7 @@ public class UserController {
         for (Tblcomment tblcomment : noCommentList) {
             long orderid = tblcomment.getOrderid();     // 获取待评价的订单的订单id
             List<Tblcomment> list = tblcommentService.findNoCommentGoods(userid,orderid);   // 该订单的商品信息
-            tblcomment.setGoodsList(list);  //
+            tblcomment.setGoodsList(list);
         }
         String json = JSON.toJSONString(noCommentList);
         return json;
@@ -142,7 +154,21 @@ public class UserController {
     public String findUserRedPacket(long userid){
         System.out.println("------显示我的红包------");
         List<Tblredpacket> redpacketList = tblredpacketService.findUserRedPacket(userid);
-        String json = JSON.toJSONString(redpacketList);
+        for(Tblredpacket tblredpacket : redpacketList) {
+            String invalidDate = tblredpacket.getInvaliddate();
+            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
+            String nowTime = formatter.format(date);    // 系统当前日期
+            // 失效日期 = 系统当前日期，且红包未使用，则修改其状态为“已失效”
+            if (invalidDate.equals(nowTime)) {
+                boolean flag = tblredpacketService.updateDate(nowTime);
+                if (!flag) {
+                    return "0";
+                }
+            }
+        }
+        List<Tblredpacket> redsList = tblredpacketService.findUserRedPacket(userid);
+        String json = JSON.toJSONString(redsList);
         return json;
     }
 
@@ -180,15 +206,12 @@ public class UserController {
             @ApiImplicitParam(name = "shopgoodstypeidid",value = "点击店左侧菜单栏，获得shopgoodstypeidid")
     })
     @RequestMapping(value="/findAllShopGoods",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
-    public String findAllShopGoods(long shopid,long shopgoodstypeidid){
+    public String findAllShopGoods(long shopid){
         System.out.println("------点击商铺查询该店的商品------");
         Tblshop tblshop = tblgoodsService.findShop(shopid);     // 店铺信息
         List<Tblshop> specialityList = tblgoodsService.findSpeciality(shopid);  // 该店铺的招牌菜
-        String shopName = tblshop.getShopname();    // 店铺名称
-        Tblshop shopgoodstype = tblgoodsService.findShopgoodstypeid(shopName);  // 查询找到shopgoodstypeid
-        long shopgoodstypeidID = shopgoodstype.getShopgoodstypeid();
-        List<Tblshop> shopGoodsTypeList = tblgoodsService.findShopGoodsType(shopgoodstypeidID); // 左侧菜单栏的内容
-        List<Tblgoods> goodsList = tblgoodsService.findAllGoods(shopid,shopgoodstypeidid);         // 该店铺的所有商品
+        List<Tblshop> shopGoodsTypeList = tblgoodsService.findShopGoodsType(shopid); // 左侧菜单栏的内容
+        List<Tblgoods> goodsList = tblgoodsService.findAllGoods(shopid);         // 该店铺的所有商品
 
         Map<String, Object> map = new HashMap<>();
         String json = JSON.toJSONString(map);

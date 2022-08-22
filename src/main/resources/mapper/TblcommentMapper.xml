@@ -8,7 +8,7 @@
         select * from tblcomment c
         inner join tblorder o on c.orderid = o.orderid
         inner join tblshop s on s.shopid = o.shopid
-        where commentcontent is null and userid = #{userid}
+        where commentcontent is null and userid = #{userid} and o.orderstate = 32
     </select>
 
     <!-- 查询待评价的订单的商品信息 -->
@@ -17,7 +17,7 @@
         inner join tblorder o on o.orderid = c.orderid
         inner join tblbuygoods bg on bg.orderid = o.orderid
         inner join tblgoods g on g.goodsid = bg.goodsid
-        where c.userid = #{userid} and c.commentcontent is null and c.orderid = #{orderid}
+        where c.userid = #{userid} and c.commentcontent is null and c.orderid = #{orderid} and o.orderstate = 32
     </select>
 
     <!-- 查询“我的评价”已评价的订单信息和评价内容 -->
@@ -25,7 +25,7 @@
         select * from tblcomment c
         inner join tblorder o on o.orderid = c.orderid
         inner join tblshop s on s.shopid = c.shopid
-        where c.commentcontent is not null and c.userid = #{userid}
+        where c.commentcontent is not null and c.userid = #{userid} and c.roleid = #{roleid}
     </select>
 
 </mapper>
