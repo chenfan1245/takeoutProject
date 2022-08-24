@@ -22,5 +22,7 @@ public interface TblshoppingcarService {
     List<Tblshoppingcard> findCarGoods(long userid, long shopid);
     // 购物车显示内容：商品的规格内容
     List<Tblgoodsspec> findCarGoodsSpec(long userid, List<Long> goodsidList, List<Long> specidList);
+    // 删除购物车选中的商品
+    boolean deleteCar(long userid, List<Long> goodsidList);
 
 }

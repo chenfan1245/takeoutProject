@@ -10,7 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,33 +30,30 @@ class TakeoutUserApplicationTests {
     @Autowired
     TblshoppingcarService tblshoppingcarService;
 
+
     @Test
     void contextLoads() {
         // 前端传来的数据
         long userid = 1;
 
         // 测试
-        List<Tblshoppingcard> shopsList = tblshoppingcarService.findCarShopName(userid);  // 店铺列表
-        for(Tblshoppingcard tblshoppingcard : shopsList) {
-            String shopname = tblshoppingcard.getShopname();
-            List<Tblshoppingcard> shopList = tblshoppingcarService.findCarShop(shopname);
-            for (Tblshoppingcard shop : shopList) {
-                tblshoppingcard.setShopid(shop.getShopid());
-                tblshoppingcard.setRoleid(shop.getRoleid());
-                tblshoppingcard.setOpentime(shop.getOpentime());
-                tblshoppingcard.setEndtime(shop.getEndtime());
-                tblshoppingcard.setShopaddress(shop.getShopaddress());
-                tblshoppingcard.setShopstate(shop.getShopstate());
-                tblshoppingcard.setAuditstate(shop.getAuditstate());
-            }
-            long shopid = tblshoppingcard.getShopid();
-            List<Tblshoppingcard> goodsList = tblshoppingcarService.findCarGoods(userid,shopid);
-            tblshoppingcard.setCart(goodsList);
+
+        String d = "2022-1-1 12:36:00";
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date dd = df.parse(d);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dd);
+            calendar.add(Calendar.MINUTE, 5);//加5分钟
+            System.out.println("增加5分钟之后：" + df.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
 
         // 打印
         System.out.println("-------------------------------------------------------------");
-        System.out.println("购物车列表："+shopsList);
+//        System.out.println("待评价列表："+noCommentList);
         System.out.println("-------------------------------------------------------------");
 
     }

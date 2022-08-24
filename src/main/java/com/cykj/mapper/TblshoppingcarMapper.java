@@ -31,5 +31,7 @@ public interface TblshoppingcarMapper {
     List<Tblgoodsspec> findCarGoodsSpec(@Param("userid")long userid,
                                         @Param("goodsidList")List<Long> goodsidList,
                                         @Param("specidList")List<Long> specidList);
+    // 删除购物车选中的商品
+    boolean deleteCar(@Param("userid")long userid,@Param("goodsidList")List<Long> goodsidList);
 
 }

@@ -54,4 +54,10 @@ public class TblshoppingcarServiceImpl implements TblshoppingcarService {
     public List<Tblgoodsspec> findCarGoodsSpec(long userid, List<Long> goodsidList, List<Long> specidList) {
         return shoppingcarMapper.findCarGoodsSpec(userid, goodsidList, specidList);
     }
+
+    // 删除购物车选中的商品
+    @Override
+    public boolean deleteCar(long userid, List<Long> goodsidList) {
+        return shoppingcarMapper.deleteCar(userid, goodsidList);
+    }
 }

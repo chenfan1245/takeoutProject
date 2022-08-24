@@ -13,6 +13,15 @@ public class TblcommentServiceImpl implements TblcommentService {
     @Autowired
     private TblcommentMapper commentMapper;
 
+    @Override
+    public boolean sendComment(long orderid, long userid, long roleid, String commentcontent, long commentscore) {
+        int num = commentMapper.sendComment(orderid, userid, roleid, commentcontent, commentscore);
+        if (num > 0){
+            return true;
+        }
+        return false;
+    }
+
     // 查询待评价的订单的店铺信息
     @Override
     public List<Tblcomment> findNoCommentShop(long userid) {
@@ -27,7 +36,7 @@ public class TblcommentServiceImpl implements TblcommentService {
 
     // 已评价的订单信息和评价内容
     @Override
-    public List<Tblcomment> findComment(long userid) {
-        return commentMapper.findComment(userid);
+    public List<Tblcomment> findComment(long userid, long roleid) {
+        return commentMapper.findComment(userid,roleid);
     }
 }

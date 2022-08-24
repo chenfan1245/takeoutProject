@@ -46,6 +46,25 @@ public class UserController {
     @Autowired
     private TblshoppingcarService tblshoppingcarService;
 
+    /* 删除购物车信息 */
+    @ApiOperation(value = "deleteCar",notes = "删除购物车信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userid",value = "登录的用户的id"),
+            @ApiImplicitParam(name = "specidList",value = "加入购物车时所选择的那些规格id")
+    })
+    @RequestMapping(value="/deleteCar",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })
+    public String deleteCar(long userid, Long[] goodsidList){
+        System.out.println("------删除购物车信息------");
+        List<Long> goodsidsList = Arrays.asList(goodsidList);
+        boolean flag = tblshoppingcarService.deleteCar(userid,goodsidsList);
+        System.out.println("59         "+flag);
+        if (flag) {
+            return "1";
+        } else {
+            return "2";
+        }
+    }
+
     /* 查询购物车显示的内容 */
     @ApiOperation(value = "findShoppingcar",notes = "查询购物车显示的内容，传回店铺名称列表、规格内容列表、商品列表")
     @ApiImplicitParams({
@@ -383,15 +402,15 @@ public class UserController {
     }
 
     /*用户评论*/
-    @RequestMapping("/sendComment")
-    public String sendComment(String orderid,String roleid,String userid,String comment,String score){
-        System.out.println(orderid);
-        if (tblcommentService.sendComment(Long.parseLong(orderid),Long.parseLong(roleid),Long.parseLong(userid),comment,Long.parseLong(score))){
-            return "1";
-        }else {
-            return "2";
-        }
-    }
+//    @RequestMapping("/sendComment")
+//    public String sendComment(String orderid,String roleid,String userid,String comment,String score){
+//        System.out.println(orderid);
+//        if (tblcommentService.sendComment(Long.parseLong(orderid),Long.parseLong(roleid),Long.parseLong(userid),comment,Long.parseLong(score))){
+//            return "1";
+//        }else {
+//            return "2";
+//        }
+//    }
 
     /*系统信息查询*/
     @RequestMapping(value = "/findNotice",produces = { "text/html;charset=UTF-8;", "application/json;charset=UTF-8;" })

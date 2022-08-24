@@ -23,12 +23,33 @@ public class Tblrider {
   private String riderhead;
   @ApiModelProperty(value = "审核状态（未审核 / 审核通过 / 审核未通过）")
   private String auditstate;
-  @ApiModelProperty(value = "骑手状态（启用 / 禁用）")
+  @ApiModelProperty(value = "骑手状态（启用 / 禁用 / 未通过实名认证 / 通过实名认证 / 未通过安全考核 / 通过安全考核）")
   private String riderstate;
   @ApiModelProperty(value = "余额")
   private double balance;
   @ApiModelProperty(value = "角色id")
   private long roleid;
+
+  public Tblrider() {
+  }
+
+  @Override
+  public String toString() {
+    return "骑手{" +
+            "骑手id=" + riderid +
+            ", 姓名='" + ridername + '\'' +
+            ", 帐号='" + ridertel + '\'' +
+            ", 密码='" + riderpwd + '\'' +
+            ", 身份证正面='" + idcardfront + '\'' +
+            ", 身份证背面='" + idcardback + '\'' +
+            ", 健康证='" + healthcard + '\'' +
+            ", 头像='" + riderhead + '\'' +
+            ", 审核状态='" + auditstate + '\'' +
+            ", 骑手状态='" + riderstate + '\'' +
+            ", 收入=" + balance +
+            ", 角色id=" + roleid +
+            '}';
+  }
 
   public String getRidername() {
     return ridername;

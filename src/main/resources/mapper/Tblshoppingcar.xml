@@ -57,4 +57,15 @@
         </if>
     </select>
 
+    <!-- 删除购物车选中的商品 -->
+    <delete id="deleteCar">
+        DELETE FROM tblshoppingcard where userid = #{userid}
+        <if test="goodsidList != null and goodsidList.size() > 0">
+            and goodsid in
+            <foreach collection="goodsidList" open="(" close=")" separator="," item="goodsid">
+                #{goodsid}
+            </foreach>
+        </if>
+    </delete>
+
 </mapper>
