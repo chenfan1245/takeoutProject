@@ -57,7 +57,6 @@ public class UserController {
         System.out.println("------删除购物车信息------");
         List<Long> goodsidsList = Arrays.asList(goodsidList);
         boolean flag = tblshoppingcarService.deleteCar(userid,goodsidsList);
-        System.out.println("59         "+flag);
         if (flag) {
             return "1";
         } else {
